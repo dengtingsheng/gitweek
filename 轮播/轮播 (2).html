@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>轮播</title>
+    <style>
+        .banner{
+            width: 940px;
+            height: 423px;
+            margin: auto;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid red;
+        }
+        #img1{
+            width: 940px;
+            height: 423px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        #img2{
+            width: 940px;
+            height: 423px;
+            position: absolute;
+            top: 0;
+            left: 940px;
+
+        }
+        .banner div{
+            position: relative;
+            padding: 22% 15px;            
+            font-size: 1.4em;
+            cursor: pointer;
+            color: white;
+            background: rgba(168, 168, 144, 0.45);
+            float: left;
+        }
+        #right_btn{
+            float: right;
+        }
+        ul{
+            margin: 0;
+            padding: 0;
+            display: inline-block;
+            width: 200px;
+            height: 30px;
+            position: absolute;
+            left: 40%;
+            bottom: 10px;
+        }
+        ul li{
+            list-style: none;
+            float: left;
+        }
+        ul li span{
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            background: white;
+            color: gray;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+        ul li span:hover{
+            background: #f40;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <img id="img1" src="images/img1.jpg" style="left:0" alt="">
+        <img id="img2" src="images/img2.jpg" style="left:940px" alt="">
+        <div id="left_btn"><</div>
+        <div id="right_btn">></div>
+        <ul id="ul">
+            <li><span>1</span></li>
+            <li><span>2</span></li>
+            <li><span>3</span></li>
+            <li><span>4</span></li>
+        </ul>
+    </div>
+    <script>
+        window.onload = function(){
+            let index = 1;
+            let step = 20;
+            let imgArr = [
+                "images/img1.jpg",
+                "images/img2.jpg",
+                "images/img3.jpg",
+                "images/img4.jpg"
+            ]
+            let imgs = document.querySelectorAll(".banner img");
+            
+            let main = function(){
+                setInterval(function(){
+                    side();
+                },3000);
+                
+            }
+            let side = function(){
+                let times = setInterval(function(){
+                    imgs.forEach(function(ele) {
+                        ele.style.left = parseInt(ele.style.left || 0) - step + "px";
+                        if(parseInt(ele.style.left) <= -940){
+                            index++;
+                            if(index >= imgArr.length){
+                                index = 0;
+                            }
+                            ele.src = imgArr[index];
+                            ele.style.left = "940px";
+                            clearInterval(times);
+                        }
+                    });
+                    
+                },30)
+            }
+            main();
+        }
+    </script>
+</body>
+</html>

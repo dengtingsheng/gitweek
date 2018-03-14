@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>轮播</title>
+    <style>
+        .img-div {
+            width: 940px;
+            height: 423px;
+            border: 1px solid red;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .img-div .img1 {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .img-div .img2 {
+            position: absolute;
+            top: 0;
+            left: 940px;
+        }
+
+        .left,
+        .right {
+            float: left;
+            padding: 20% 5px;
+            font-size: 3em;
+            color: white;
+            background: rgba(0, 0, 0, 0.2);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .right {
+            float: right;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="img-div">
+
+        <img class="img1" src="images/img1.jpg" style="left:0" />
+        <img class="img2" src="images/img2.jpg" style="left:940px" />
+        <div class="left">
+            <</div>
+                <div class="right">></div>
+        </div>
+        <script>
+           window.onload = function(){
+               let index = 1;
+               //步长
+               let step = 20;
+               let ary = [
+                   "images/img1.jpg",
+                   "images/img2.jpg",
+                   "images/img3.jpg",
+                   "images/img4.jpg"
+               ];
+               let startAnimate = function(){
+                   setInterval(function(){
+                        moveImage();
+                   },3000);
+               }
+               let moveImage = function(){
+                    let imgs = document.querySelectorAll(".img-div img");
+                    let intervalId = setInterval(function(){
+                        imgs.forEach(function(ele){
+                            ele.style.left = parseInt(ele.style.left || 0) - step + "px";
+                            if(parseInt(ele.style.left) <= -940){
+                                index++;
+                                if(index >= ary.length){
+                                    index = 0;
+                                }
+                                ele.src = ary[index];
+                                ele.style.left = "940px";
+                                clearInterval(intervalId);
+                            }
+                        });
+                    },30);
+                    
+               }
+               startAnimate();
+           }
+
+        </script>
+</body>
+
+</html>
